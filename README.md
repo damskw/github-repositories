@@ -12,11 +12,11 @@ This project is a Spring Boot application that provides an API for GitHub reposi
 ### Steps
 1. Clone the repository:
    ```bash
-   git clone  https://github.com/damskw/recruitment-task.git
+   git clone  https://github.com/damskw/github-repositories.git
    ```
 2. Navigate to the project directory:
    ```bash
-   cd recruitment-task
+   cd github-repositories
    ```
 3. Build the project using Maven:
    ```bash
