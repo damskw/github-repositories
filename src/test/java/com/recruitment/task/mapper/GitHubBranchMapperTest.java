@@ -2,34 +2,30 @@ package com.recruitment.task.mapper;
 
 import com.recruitment.task.data.GitHubBranch;
 import com.recruitment.task.dto.GitHubBranchDto;
-import org.assertj.core.api.Assertions;
-import org.jeasy.random.EasyRandom;
-import org.jeasy.random.EasyRandomParameters;
+import com.recruitment.task.dto.GitHubCommitDto;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+@ExtendWith(MockitoExtension.class)
 class GitHubBranchMapperTest {
 
-    private final EasyRandomParameters parameters = new EasyRandomParameters();
-    private final EasyRandom easyRandom = new EasyRandom(parameters);
-
-    private final GitHubBranchMapper gitHubBranchMapper = new GitHubBranchMapper();
-
+    @InjectMocks
+    private GitHubBranchMapper gitHubBranchMapper;
 
     @Test
-    void shouldMapBranchToDto() {
-        //given
-        GitHubBranch branch = easyRandom.nextObject(GitHubBranch.class);
-        //when
-        GitHubBranchDto actual = gitHubBranchMapper.mapToBranchDto(branch);
-        //then
-        GitHubBranchDto expected = new GitHubBranchDto(
-                branch.getName(),
-                branch.getCommit().getSha()
-        );
-        Assertions.assertThat(actual).isEqualTo(expected);
+    void testMapToBranchDto() {
+        // Given
+        GitHubBranch branch = new GitHubBranch("main", new GitHubCommitDto("testSha"));
+
+        // When
+        GitHubBranchDto branchDto = gitHubBranchMapper.mapToBranchDto(branch);
+
+        // Then
+        assertEquals(branch.name(), branchDto.name());
+        assertEquals(branch.commit().sha(), branchDto.lastCommitSHA());
     }
-
-
 }

@@ -7,12 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class GitHubBranchMapper {
 
-
     public GitHubBranchDto mapToBranchDto(GitHubBranch branch) {
-        GitHubBranchDto branchDto = new GitHubBranchDto();
-        branchDto.setName(branch.getName());
-        branchDto.setLastCommitSHA(branch.getCommit().getSha());
-        return branchDto;
+        return new GitHubBranchDto(branch.name(), branch.commit().sha());
     }
 
 }
