@@ -19,10 +19,10 @@ public class GitHubController {
 
     @GetMapping(path = "repositories", produces = MediaType.APPLICATION_JSON_VALUE)
     public GitHubRepositoryResponse getRepositories(@RequestParam String username, @RequestHeader("Accept") String acceptHeader) {
-        if (!acceptHeader.equals(MediaType.APPLICATION_JSON_VALUE)) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
+        if (!MediaType.APPLICATION_JSON_VALUE.equals(acceptHeader)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Accept header must be application/json");
         }
-        return gitHubAPIService.getRepositories(username);
+        return gitHubAPIService.getRepositories(username).block();
     }
 }
 
